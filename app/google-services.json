@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "474493862964",
+    "project_id": "taptaze-60bb9",
+    "storage_bucket": "taptaze-60bb9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474493862964:android:2e744a88de957a0158f661",
+        "android_client_info": {
+          "package_name": "com.example.taptaze"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7riKHSfvdH_RqEmM3C1d90P-EKKT2RWM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
