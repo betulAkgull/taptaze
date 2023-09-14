@@ -44,7 +44,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.taptaze.ui.main.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/homeToDetail"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.taptaze.ui.main.search.SearchFragment"
@@ -73,5 +77,9 @@
         android:id="@+id/detailFragment"
         android:name="com.example.taptaze.ui.main.detail.DetailFragment"
         android:label="DetailFragment"
-        tools:layout="@layout/fragment_detail"/>
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>
