@@ -1,9 +1,19 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Taptaze" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Taptaze" parent="Base.Theme.Taptaze" />
+    <style name="Theme.Taptaze" parent="Base.Theme.Taptaze">
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="colorPrimary">@color/yellow</item>
+    </style>
+
+
+    <style name="textViewRegular">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
 </resources>

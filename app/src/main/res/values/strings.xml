@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">taptaze</string>
+    <string name="tv_signin">Welcome Back !</string>
+    <string name="tv_email">Email</string>
+    <string name="tv_password">Password</string>
+    <string name="tv_email_and_passwrd">Please sign in to continue.</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="log_in">Sign In</string>
+    <string name="don_t_have_an_account_signup">Don\'t have an account ? <u>Signup</u></string>
+    <string name="sign_up">Sign Up</string>
+    <string name="enter_your_credentials_to_continue">Enter your credentials to continue</string>
+    <string name="already_have_an_account_u_signin_u">Already have an account ? <u>Sign In </u></string>
+    <string name="log_out">Log Out</string>
+    <string name="special_offers">Special Offers</string>
 </resources>
