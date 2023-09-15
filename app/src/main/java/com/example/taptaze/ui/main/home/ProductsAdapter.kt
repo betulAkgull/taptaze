@@ -14,7 +14,7 @@ import com.example.taptaze.databinding.ProductItemBinding
 
 class ProductsAdapter (
     private val productListener: ProductListener
-) : ListAdapter<Product, ProductsAdapter.ProductViewHolder>(BookDiffCallBack()) {
+) : ListAdapter<Product, ProductsAdapter.ProductViewHolder>(ProductDiffCallBack()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder =
         ProductViewHolder(
             ProductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
@@ -29,6 +29,7 @@ class ProductsAdapter (
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind (product:Product) = with(binding) {
             tvProductTitle.text = product.title
+            tvProductDesc.text = product.description
             ivProduct.loadImage(product.imageOne)
             root.setOnClickListener {
                 productListener.onProductClick(product.id ?: 1)
@@ -38,14 +39,14 @@ class ProductsAdapter (
                 tvProductSalePrice.visible()
                 //bunlar düzeltilcek
                 tvProductSalePrice.text = "₺${product.salePrice}"
-                tvProductPrice.setText(Html.fromHtml("<u>₺${product.price}</u>"))
+                tvProductPrice.setText(Html.fromHtml("<s>₺${product.price}</s>"))
             }else{
-                tvProductPrice.text = "₺{product.price} ₺"
+                tvProductPrice.text = "₺${product.price}"
             }
         }
     }
 
-    class BookDiffCallBack: DiffUtil.ItemCallback<Product>() {
+    class ProductDiffCallBack: DiffUtil.ItemCallback<Product>() {
         override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
             return oldItem == newItem
         }

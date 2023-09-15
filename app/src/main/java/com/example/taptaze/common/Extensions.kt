@@ -2,10 +2,15 @@ package com.example.taptaze.common
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.view.ContentInfoCompat.Flags
 import com.bumptech.glide.Glide
 
 fun ImageView.loadImage(url: String?) {
     Glide.with(this.context).load(url).into(this)
+}
+
+fun TextView.strikeText(){
 }
 
 fun View.visible() {

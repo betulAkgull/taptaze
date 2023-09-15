@@ -15,11 +15,13 @@ import com.example.taptaze.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home), ProductsAdapter.ProductListener {
+class HomeFragment : Fragment(R.layout.fragment_home), ProductsAdapter.ProductListener{
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel by viewModels<HomeViewModel>()
     private val productsAdapter by lazy { ProductsAdapter(this) }
+    private val discountsAdapter by lazy { ProductsAdapter(this) }
+
 
 
     override fun onCreateView(
@@ -35,6 +37,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), ProductsAdapter.ProductLi
         super.onViewCreated(view, savedInstanceState)
 
         binding.rvProducts.adapter = productsAdapter
+        binding.rvDiscount.adapter = discountsAdapter
+
 
         viewModel.getAllProducts()
         observeData()
@@ -51,6 +55,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), ProductsAdapter.ProductLi
                 is HomeState.Data -> {
                     binding.progressBarHome.invisible()
                     productsAdapter.submitList(state.products)
+                    val discounts = state.products.filter { it.saleState == true }
+                    discountsAdapter.submitList(discounts)
                 }
 
                 is HomeState.Error -> {

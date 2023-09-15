@@ -35,6 +35,7 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
 
         }
     }
+
 }
 
 sealed interface HomeState {
