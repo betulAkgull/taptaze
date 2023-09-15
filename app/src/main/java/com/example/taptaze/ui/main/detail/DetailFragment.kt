@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.taptaze.R
 import com.example.taptaze.common.invisible
@@ -42,6 +43,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         observeData()
 
         with(binding){
+
+            toolbar.setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
+
             btnAddToCart.setOnClickListener {
 
             }
@@ -63,8 +69,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                         ivProduct.loadImage(product.imageOne)
                         tvProductTitle.text = product.title
                         tvProductDesc.text = product.description
+                        ratingbar.rating = product.rate!!.toFloat()
                         if(product.saleState == true){
-                            tvProductPrice.textSize = 12f
+                            tvProductPrice.textSize = 16f
                             tvProductSalePrice.visible()
                             //bunlar düzeltilcek
                             tvProductSalePrice.text = "₺${product.salePrice}"

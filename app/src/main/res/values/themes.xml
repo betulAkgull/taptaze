@@ -9,6 +9,7 @@
         <item name="backgroundTint">@color/white</item>
         <item name="android:windowFullscreen">true</item>
         <item name="colorPrimary">@color/yellow</item>
+        <item name="fontFamily">sans-serif-medium</item>
     </style>
 
 

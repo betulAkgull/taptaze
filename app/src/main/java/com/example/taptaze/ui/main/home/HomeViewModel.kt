@@ -28,7 +28,23 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
             val result = productRepository.getAllProducts()
 
             if (result is Resource.Success) {
-                _homeState.value = HomeState.Data(result.data)
+                _homeState.value = HomeState.ProductList(result.data)
+            } else if (result is Resource.Error) {
+                _homeState.value = HomeState.Error(result.throwable)
+            }
+
+        }
+    }
+
+    fun getSaleProducts() {
+        viewModelScope.launch {
+
+            _homeState.value = HomeState.Loading
+
+            val result = productRepository.getSaleProducts()
+
+            if (result is Resource.Success) {
+                _homeState.value = HomeState.SaleProductList(result.data)
             } else if (result is Resource.Error) {
                 _homeState.value = HomeState.Error(result.throwable)
             }
@@ -40,6 +56,7 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
 
 sealed interface HomeState {
     object Loading : HomeState
-    data class Data(val products: List<Product>) : HomeState
+    data class ProductList(val products: List<Product>) : HomeState
+    data class SaleProductList(val saleProducts: List<Product>) : HomeState
     data class Error(val throwable: Throwable) : HomeState
 }

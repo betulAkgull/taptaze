@@ -13,4 +13,5 @@
     <string name="already_have_an_account_u_signin_u">Already have an account ? <u>Sign In </u></string>
     <string name="log_out">Log Out</string>
     <string name="special_offers">Special Offers</string>
+    <string name="what_do_you_need_for">What do you need for ?</string>
 </resources>

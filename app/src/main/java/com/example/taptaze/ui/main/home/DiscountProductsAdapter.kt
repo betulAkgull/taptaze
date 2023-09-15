@@ -11,21 +11,21 @@ import com.example.taptaze.common.visible
 import com.example.taptaze.data.model.Product
 import com.example.taptaze.databinding.ProductItemBinding
 
-class ProductsAdapter(
-    private val productListener: ProductListener
-) : ListAdapter<Product, ProductsAdapter.ProductViewHolder>(ProductDiffCallBack()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder =
-        ProductViewHolder(
+class DiscountProductsAdapter(
+    private val discountProductListener: DiscountProductListener
+) : ListAdapter<Product, DiscountProductsAdapter.DiscountProductViewHolder>(DiscountProductDiffCallBack()) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiscountProductViewHolder =
+        DiscountProductViewHolder(
             ProductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-            productListener
+            discountProductListener
         )
 
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: DiscountProductViewHolder, position: Int) =
         holder.bind(getItem(position))
 
-    class ProductViewHolder(
+    class DiscountProductViewHolder(
         private val binding: ProductItemBinding,
-        private val productListener: ProductListener
+        private val productListener: DiscountProductListener
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) = with(binding) {
             tvProductTitle.text = product.title
@@ -35,7 +35,7 @@ class ProductsAdapter(
                 productListener.onProductClick(product.id ?: 1)
             }
             if (product.saleState == true) {
-                tvProductPrice.textSize = 14f
+                tvProductPrice.textSize = 12f
                 tvProductSalePrice.visible()
                 //bunlar düzeltilcek
                 tvProductSalePrice.text = "₺${product.salePrice}"
@@ -46,7 +46,7 @@ class ProductsAdapter(
         }
     }
 
-    class ProductDiffCallBack : DiffUtil.ItemCallback<Product>() {
+    class DiscountProductDiffCallBack : DiffUtil.ItemCallback<Product>() {
         override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
             return oldItem == newItem
         }
@@ -56,7 +56,7 @@ class ProductsAdapter(
         }
     }
 
-    interface ProductListener {
+    interface DiscountProductListener {
         fun onProductClick(id: Int)
     }
 }

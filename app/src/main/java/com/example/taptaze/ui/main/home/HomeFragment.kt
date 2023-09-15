@@ -15,14 +15,13 @@ import com.example.taptaze.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home), ProductsAdapter.ProductListener{
+class HomeFragment : Fragment(R.layout.fragment_home), ProductsAdapter.ProductListener,
+    DiscountProductsAdapter.DiscountProductListener {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel by viewModels<HomeViewModel>()
     private val productsAdapter by lazy { ProductsAdapter(this) }
-    private val discountsAdapter by lazy { ProductsAdapter(this) }
-
-
+    private val discountsAdapter by lazy { DiscountProductsAdapter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,27 +35,34 @@ class HomeFragment : Fragment(R.layout.fragment_home), ProductsAdapter.ProductLi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        binding.ivProfile.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.homeToProfile())
+        }
+
         binding.rvProducts.adapter = productsAdapter
         binding.rvDiscount.adapter = discountsAdapter
 
-
         viewModel.getAllProducts()
+        viewModel.getSaleProducts()
         observeData()
     }
 
     private fun observeData() {
-
         viewModel.homeState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 HomeState.Loading -> {
                     binding.progressBarHome.visible()
                 }
 
-                is HomeState.Data -> {
-                    binding.progressBarHome.invisible()
+                is HomeState.ProductList -> {
                     productsAdapter.submitList(state.products)
-                    val discounts = state.products.filter { it.saleState == true }
-                    discountsAdapter.submitList(discounts)
+                    binding.progressBarHome.invisible()
+                }
+
+                is HomeState.SaleProductList -> {
+                    discountsAdapter.submitList(state.saleProducts)
+                    binding.progressBarHome.invisible()
                 }
 
                 is HomeState.Error -> {
@@ -75,6 +81,5 @@ class HomeFragment : Fragment(R.layout.fragment_home), ProductsAdapter.ProductLi
         val direction = HomeFragmentDirections.homeToDetail(id)
         findNavController().navigate(direction)
     }
-
 
 }

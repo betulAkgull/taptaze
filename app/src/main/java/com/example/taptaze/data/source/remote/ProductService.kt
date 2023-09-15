@@ -3,8 +3,12 @@ package com.example.taptaze.data.source.remote
 
 import com.example.taptaze.common.Constants.Endpoint.GET_ALL_PRODUCTS
 import com.example.taptaze.common.Constants.Endpoint.GET_PRODUCT_DETAIL
+import com.example.taptaze.common.Constants.Endpoint.GET_SALE_PRODUCTS
+import com.example.taptaze.common.Constants.Endpoint.SEARCH_PRODUCT
 import com.example.taptaze.data.model.GetProductDetailResponse
 import com.example.taptaze.data.model.GetProductResponse
+import com.example.taptaze.data.model.GetSaleProductResponse
+import com.example.taptaze.data.model.GetSearchProductResponse
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
@@ -21,4 +25,15 @@ interface ProductService {
     suspend fun getProductDetail(
         @Query("id") id: Int
     ): GetProductDetailResponse
+
+    @Headers("store:taptaze")
+    @GET(GET_SALE_PRODUCTS)
+    suspend fun getSaleProducts(): GetSaleProductResponse
+
+    @Headers("store:taptaze")
+    @GET(SEARCH_PRODUCT)
+    suspend fun getSearchProduct(
+        @Query("query") query: String
+    ): GetSearchProductResponse
+
 }

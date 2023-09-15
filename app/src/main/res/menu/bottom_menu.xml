@@ -14,7 +14,7 @@
 
     <item
         android:id="@+id/cartFragment"
-        android:icon="@drawable/ic_cart"
+        android:icon="@drawable/round_shopping_cart_24"
         android:title="Cart"
         />
 
@@ -24,10 +24,5 @@
         android:title="Favorite"
         />
 
-    <item
-        android:id="@+id/profileFragment"
-        android:icon="@drawable/ic_profile"
-        android:title="Profile"
-        />
 
 </menu>

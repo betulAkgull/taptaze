@@ -5,16 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/round_arrow_back_ios_new_24"
+        app:title="Profile">
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="78dp"
         android:layout_height="82dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="60dp"
         android:src="@drawable/ic_profile"
         app:layout_constraintEnd_toEndOf="@+id/btn_logout"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/btn_logout"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/tv_user_email"

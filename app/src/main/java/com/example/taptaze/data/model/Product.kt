@@ -2,7 +2,6 @@ package com.example.taptaze.data.model
 
 
 data class Product(
-
     val category: String?,
     val count: Int?,
     val description: String?,

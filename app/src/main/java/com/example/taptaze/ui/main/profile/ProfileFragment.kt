@@ -23,6 +23,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         with(binding) {
 
+            toolbar.setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
+
             tvUserEmail.setText(
                 viewModel.currentUser?.email.toString()
             )

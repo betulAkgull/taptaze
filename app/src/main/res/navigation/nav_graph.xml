@@ -48,12 +48,19 @@
         <action
             android:id="@+id/homeToDetail"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/homeToProfile"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.taptaze.ui.main.search.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search"/>
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/searchToDetail"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.taptaze.ui.main.cart.CartFragment"
@@ -72,6 +79,9 @@
         <action
             android:id="@+id/profileToSplash"
             app:destination="@id/splashFragment" />
+        <action
+            android:id="@+id/profileToHome"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"

@@ -1,4 +1,4 @@
-package com.example.taptaze.ui.main.home
+package com.example.taptaze.ui.main.search
 
 import android.text.Html
 import android.view.LayoutInflater
@@ -9,44 +9,42 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.taptaze.common.loadImage
 import com.example.taptaze.common.visible
 import com.example.taptaze.data.model.Product
-import com.example.taptaze.databinding.ProductItemBinding
+import com.example.taptaze.databinding.ItemSearchBinding
 
-class ProductsAdapter(
-    private val productListener: ProductListener
-) : ListAdapter<Product, ProductsAdapter.ProductViewHolder>(ProductDiffCallBack()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder =
-        ProductViewHolder(
-            ProductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-            productListener
+class SearchProductsAdapter(
+    private val searchProductListener: SearchProductListener
+) : ListAdapter<Product, SearchProductsAdapter.SearchProductViewHolder>(SearchProductDiffCallBack()) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchProductViewHolder =
+        SearchProductViewHolder(
+            ItemSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            searchProductListener
         )
 
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: SearchProductViewHolder, position: Int) =
         holder.bind(getItem(position))
 
-    class ProductViewHolder(
-        private val binding: ProductItemBinding,
-        private val productListener: ProductListener
+    class SearchProductViewHolder(
+        private val binding: ItemSearchBinding,
+        private val searchProductListener: SearchProductListener
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) = with(binding) {
             tvProductTitle.text = product.title
-            tvProductDesc.text = product.description
             ivProduct.loadImage(product.imageOne)
             root.setOnClickListener {
-                productListener.onProductClick(product.id ?: 1)
+                searchProductListener.onProductClick(product.id ?: 1)
             }
             if (product.saleState == true) {
                 tvProductPrice.textSize = 14f
-                tvProductSalePrice.visible()
-                //bunlar düzeltilcek
-                tvProductSalePrice.text = "₺${product.salePrice}"
                 tvProductPrice.setText(Html.fromHtml("<s>₺${product.price}</s>"))
+                tvProductSalePrice.visible()
+                tvProductSalePrice.text = "₺${product.salePrice}"
             } else {
                 tvProductPrice.text = "₺${product.price}"
             }
         }
     }
 
-    class ProductDiffCallBack : DiffUtil.ItemCallback<Product>() {
+    class SearchProductDiffCallBack : DiffUtil.ItemCallback<Product>() {
         override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
             return oldItem == newItem
         }
@@ -56,7 +54,7 @@ class ProductsAdapter(
         }
     }
 
-    interface ProductListener {
+    interface SearchProductListener {
         fun onProductClick(id: Int)
     }
 }
