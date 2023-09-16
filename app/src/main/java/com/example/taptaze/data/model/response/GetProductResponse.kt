@@ -1,4 +1,6 @@
-package com.example.taptaze.data.model
+package com.example.taptaze.data.model.response
+
+import com.example.taptaze.data.model.Product
 
 
 data class GetProductResponse(

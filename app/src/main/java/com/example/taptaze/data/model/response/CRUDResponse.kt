@@ -1,4 +1,4 @@
-package com.example.taptaze.data.model
+package com.example.taptaze.data.model.response
 
 data class CRUDResponse(
     val status: Int,

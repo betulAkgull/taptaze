@@ -11,10 +11,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.taptaze.R
 import com.example.taptaze.common.invisible
 import com.example.taptaze.common.visible
-import com.example.taptaze.data.model.AddToCartRequest
+import com.example.taptaze.data.model.request.AddToCartRequest
 import com.example.taptaze.databinding.FragmentHomeBinding
 import com.example.taptaze.ui.login.AuthViewModel
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

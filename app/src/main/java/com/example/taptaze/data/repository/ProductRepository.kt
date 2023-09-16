@@ -1,8 +1,8 @@
 package com.example.taptaze.data.repository
 
 import com.example.taptaze.common.Resource
-import com.example.taptaze.data.model.AddToCartRequest
-import com.example.taptaze.data.model.CRUDResponse
+import com.example.taptaze.data.model.request.AddToCartRequest
+import com.example.taptaze.data.model.response.CRUDResponse
 import com.example.taptaze.data.model.Product
 import com.example.taptaze.data.source.remote.ProductService
 
