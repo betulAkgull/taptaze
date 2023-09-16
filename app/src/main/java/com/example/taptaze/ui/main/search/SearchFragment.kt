@@ -42,9 +42,7 @@ class SearchFragment : Fragment(R.layout.fragment_search), SearchProductsAdapter
                 }
             })
         }
-
         observeData()
-
     }
 
     private fun observeData() {

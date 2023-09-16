@@ -7,9 +7,14 @@
 
     <style name="Theme.Taptaze" parent="Base.Theme.Taptaze">
         <item name="backgroundTint">@color/white</item>
-        <item name="android:windowFullscreen">true</item>
+        <item name="windowActionBar">false</item>
         <item name="colorPrimary">@color/yellow</item>
         <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="splashStyle" parent="Base.Theme.Taptaze">
+        <item name="android:windowFullscreen">true</item>
+        <item name="backgroundTint">@color/white</item>
     </style>
 
 
