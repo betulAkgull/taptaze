@@ -59,11 +59,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             when (state) {
 
                 DetailState.Loading -> {
-                    binding.progressBarDetail.visible()
+                   progressBarDetail.visible()
                 }
 
                 is DetailState.Data -> {
-                    binding.progressBarDetail.invisible()
+                    progressBarDetail.invisible()
 
                     with(state) {
                         ivProduct.loadImage(product.imageOne)
@@ -83,7 +83,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 }
 
                 is DetailState.Error -> {
-                    binding.progressBarDetail.invisible()
+                    progressBarDetail.invisible()
                     Toast.makeText(
                         requireContext(),
                         state.throwable.message.orEmpty(),

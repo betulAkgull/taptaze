@@ -11,7 +11,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.taptaze.R
 import com.example.taptaze.common.invisible
 import com.example.taptaze.common.visible
+import com.example.taptaze.data.model.AddToCartRequest
 import com.example.taptaze.databinding.FragmentHomeBinding
+import com.example.taptaze.ui.login.AuthViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,6 +23,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ProductsAdapter.ProductLi
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel by viewModels<HomeViewModel>()
+    private val viewModelFirebase by viewModels<AuthViewModel>()
     private val productsAdapter by lazy { ProductsAdapter(this) }
     private val discountsAdapter by lazy { DiscountProductsAdapter(this) }
 
@@ -65,6 +69,15 @@ class HomeFragment : Fragment(R.layout.fragment_home), ProductsAdapter.ProductLi
                     binding.progressBarHome.invisible()
                 }
 
+                is HomeState.PostResponse -> {
+                    binding.progressBarHome.invisible()
+                    Toast.makeText(
+                        requireContext(),
+                        state.crud.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
                 is HomeState.Error -> {
                     binding.progressBarHome.invisible()
                     Toast.makeText(
@@ -81,5 +94,11 @@ class HomeFragment : Fragment(R.layout.fragment_home), ProductsAdapter.ProductLi
         val direction = HomeFragmentDirections.homeToDetail(id)
         findNavController().navigate(direction)
     }
+
+    override fun onCartButtonClick(id: Int) {
+        val addToCartRequest = AddToCartRequest(viewModelFirebase.currentUser!!.uid,id)
+        viewModel.addToCart(addToCartRequest)
+    }
+
 
 }
