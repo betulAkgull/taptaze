@@ -14,4 +14,14 @@
     <string name="log_out">Log Out</string>
     <string name="special_offers">Special Offers</string>
     <string name="what_do_you_need_for">What do you need for ?</string>
+    <string name="order_address">Order Address</string>
+    <string name="adress_name">Adress Name</string>
+    <string name="order_adress">Order Adress</string>
+    <string name="credit_cart_info">Credit Cart Info</string>
+    <string name="card_owner">Card Owner</string>
+    <string name="card_number">Card Number</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="cvv">CVV</string>
+    <string name="confirm_payment">Confirm Payment</string>
 </resources>

@@ -65,7 +65,14 @@
         android:id="@+id/cartFragment"
         android:name="com.example.taptaze.ui.main.cart.CartFragment"
         android:label="CartFragment"
-        tools:layout="@layout/fragment_cart"/>
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/cartToDetail"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/cartToPayment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.example.taptaze.ui.main.favorite.FavoriteFragment"
@@ -92,4 +99,9 @@
             android:name="id"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.taptaze.ui.main.payment.PaymentFragment"
+        android:label="PaymentFragment"
+        tools:layout="@layout/fragment_payment"/>
 </navigation>

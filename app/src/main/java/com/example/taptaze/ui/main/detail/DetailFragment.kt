@@ -13,9 +13,12 @@ import androidx.navigation.fragment.navArgs
 import com.example.taptaze.R
 import com.example.taptaze.common.invisible
 import com.example.taptaze.common.loadImage
-import com.example.taptaze.common.viewBinding
 import com.example.taptaze.common.visible
+import com.example.taptaze.data.model.request.AddToCartRequest
 import com.example.taptaze.databinding.FragmentDetailBinding
+import com.example.taptaze.ui.login.AuthViewModel
+import com.example.taptaze.ui.main.home.HomeState
+import com.example.taptaze.ui.main.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,6 +29,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private val args by navArgs<DetailFragmentArgs>()
 
     private val viewModel by viewModels<DetailViewModel>()
+
+    private val viewModelHome by viewModels<HomeViewModel>()
+
+    private val viewModelFirebase by viewModels<AuthViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,24 +49,35 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         viewModel.getProductDetail(args.id)
         observeData()
 
-        with(binding){
+        with(binding) {
 
             toolbar.setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
 
             btnAddToCart.setOnClickListener {
-
+                val addToCartRequest =
+                    AddToCartRequest(viewModelFirebase.currentUser!!.uid, args.id)
+                viewModelHome.addToCart(addToCartRequest)
+                viewModelHome.homeState.observe(viewLifecycleOwner) { state ->
+                    if (state is HomeState.PostResponse) {
+                        Toast.makeText(
+                            requireContext(),
+                            state.crud.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             }
         }
     }
 
-    private fun observeData() = with(binding){
+    private fun observeData() = with(binding) {
         viewModel.detailState.observe(viewLifecycleOwner) { state ->
             when (state) {
 
                 DetailState.Loading -> {
-                   progressBarDetail.visible()
+                    progressBarDetail.visible()
                 }
 
                 is DetailState.Data -> {
@@ -70,13 +88,13 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                         tvProductTitle.text = product.title
                         tvProductDesc.text = product.description
                         ratingbar.rating = product.rate!!.toFloat()
-                        if(product.saleState == true){
+                        if (product.saleState == true) {
                             tvProductPrice.textSize = 16f
                             tvProductSalePrice.visible()
                             //bunlar düzeltilcek
                             tvProductSalePrice.text = "₺${product.salePrice}"
                             tvProductPrice.setText(Html.fromHtml("<s>₺${product.price}</s>"))
-                        }else{
+                        } else {
                             tvProductPrice.text = "₺${product.price}"
                         }
                     }

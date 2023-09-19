@@ -99,5 +99,4 @@ class HomeFragment : Fragment(R.layout.fragment_home), ProductsAdapter.ProductLi
         viewModel.addToCart(addToCartRequest)
     }
 
-
 }

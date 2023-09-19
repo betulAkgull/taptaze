@@ -31,9 +31,16 @@ class DiscountProductsAdapter(
             tvProductTitle.text = product.title
             tvProductDesc.text = product.description
             ivProduct.loadImage(product.imageOne)
-            root.setOnClickListener {
+
+            ivProduct.setOnClickListener {
                 productListener.onProductClick(product.id ?: 1)
             }
+
+
+            fabAddToCart.setOnClickListener {
+                productListener.onCartButtonClick(product.id!!.toInt())
+            }
+
             if (product.saleState == true) {
                 tvProductPrice.textSize = 12f
                 tvProductSalePrice.visible()
@@ -58,6 +65,7 @@ class DiscountProductsAdapter(
 
     interface DiscountProductListener {
         fun onProductClick(id: Int)
+        fun onCartButtonClick(id:Int)
     }
 }
 
