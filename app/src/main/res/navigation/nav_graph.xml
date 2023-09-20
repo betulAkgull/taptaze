@@ -103,5 +103,18 @@
         android:id="@+id/paymentFragment"
         android:name="com.example.taptaze.ui.main.payment.PaymentFragment"
         android:label="PaymentFragment"
-        tools:layout="@layout/fragment_payment"/>
+        tools:layout="@layout/fragment_payment">
+        <action
+            android:id="@+id/paymentToPaymentSuccess"
+            app:destination="@id/paymentSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentSuccessFragment"
+        android:name="com.example.taptaze.ui.main.paymentsuccess.PaymentSuccessFragment"
+        android:label="PaymentSuccessFragment"
+        tools:layout="@layout/fragment_payment_success">
+        <action
+            android:id="@+id/paymentSuccessToHome"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

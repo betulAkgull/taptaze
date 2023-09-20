@@ -1,10 +1,12 @@
 package com.example.taptaze.common
 
 import android.view.View
+import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.ContentInfoCompat.Flags
 import com.bumptech.glide.Glide
+import com.google.android.material.textfield.TextInputLayout
 
 fun ImageView.loadImage(url: String?) {
     Glide.with(this.context).load(url).into(this)
