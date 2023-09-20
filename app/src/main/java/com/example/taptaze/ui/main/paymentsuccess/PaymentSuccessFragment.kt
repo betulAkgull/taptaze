@@ -38,12 +38,13 @@ class PaymentSuccessFragment : Fragment(R.layout.fragment_payment_success) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val req = ClearCartRequest(FirebaseAuth.getInstance().currentUser!!.uid)
+        viewModel.clearCart(req)
+
         observers()
 
         with(binding) {
             buttonContinue.setOnClickListener {
-                val req = ClearCartRequest(FirebaseAuth.getInstance().currentUser!!.uid)
-                viewModel.clearCart(req)
                 findNavController().navigate(
                     R.id.homeFragment,
                     null,
