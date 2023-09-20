@@ -70,6 +70,18 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
         }
     }
 
+    fun addToFavorite(product: Product) {
+        viewModelScope.launch {
+            productRepository.addToFavorites(product)
+        }
+    }
+
+    fun getFavoriteProducts(){
+        viewModelScope.launch {
+            productRepository.getFavoriteProducts()
+        }
+    }
+
 }
 
 sealed interface HomeState {

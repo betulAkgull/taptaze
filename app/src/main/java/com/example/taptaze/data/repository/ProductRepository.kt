@@ -1,15 +1,21 @@
 package com.example.taptaze.data.repository
 
 import com.example.taptaze.common.Resource
+import com.example.taptaze.data.mapper.mapToProduct
+import com.example.taptaze.data.mapper.mapToProductEntity
 import com.example.taptaze.data.model.Product
 import com.example.taptaze.data.model.request.AddToCartRequest
 import com.example.taptaze.data.model.request.ClearCartRequest
 import com.example.taptaze.data.model.request.DeleteFromCartRequest
 import com.example.taptaze.data.model.response.CRUDResponse
+import com.example.taptaze.data.source.local.ProductDao
 import com.example.taptaze.data.source.remote.ProductService
 
 
-class ProductRepository(private val productService: ProductService) {
+class ProductRepository(
+    private val productService: ProductService,
+    private val productDao: ProductDao
+) {
 
     suspend fun getProductDetail(id: Int): Resource<Product> {
         return try {
@@ -122,6 +128,23 @@ class ProductRepository(private val productService: ProductService) {
             Resource.Error(e)
         }
 
+    }
+
+
+    suspend fun addToFavorites(product: Product) {
+        productDao.addToFavorites(product.mapToProductEntity())
+    }
+
+    suspend fun removeFromFavorites(product: Product) {
+        productDao.removeFromFavorites(product.mapToProductEntity())
+    }
+
+    suspend fun getFavoriteProducts(): Resource<List<Product>> {
+        return try {
+            Resource.Success(productDao.getFavoriteProducts().map { it.mapToProduct() })
+        } catch (e: Exception) {
+            Resource.Error(e)
+        }
     }
 
 }

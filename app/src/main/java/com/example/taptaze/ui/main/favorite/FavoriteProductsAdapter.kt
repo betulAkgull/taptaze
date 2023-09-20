@@ -1,4 +1,4 @@
-package com.example.taptaze.ui.main.home
+package com.example.taptaze.ui.main.favorite
 
 import android.text.Html
 import android.view.LayoutInflater
@@ -6,18 +6,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.taptaze.R
 import com.example.taptaze.common.loadImage
 import com.example.taptaze.common.visible
 import com.example.taptaze.data.model.Product
-import com.example.taptaze.databinding.ProductItemBinding
+import com.example.taptaze.databinding.ItemFavoriteBinding
 
-class ProductsAdapter(
+class FavoriteProductsAdapter(
     private val productListener: ProductListener
-) : ListAdapter<Product, ProductsAdapter.ProductViewHolder>(ProductDiffCallBack()) {
+) : ListAdapter<Product, FavoriteProductsAdapter.ProductViewHolder>(ProductDiffCallBack()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder =
         ProductViewHolder(
-            ProductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            ItemFavoriteBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             productListener
         )
 
@@ -25,7 +24,7 @@ class ProductsAdapter(
         holder.bind(getItem(position))
 
     class ProductViewHolder(
-        private val binding: ProductItemBinding,
+        private val binding: ItemFavoriteBinding,
         private val productListener: ProductListener
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) = with(binding) {
@@ -37,13 +36,9 @@ class ProductsAdapter(
                 productListener.onProductClick(product.id ?: 1)
             }
 
-            fabAddToCart.setOnClickListener {
-                productListener.onCartButtonClick(product.id!!.toInt())
-            }
 
-            ivFavorite.setOnClickListener {
+            ivFav.setOnClickListener {
                 productListener.onFavButtonClick(product)
-                ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
             }
 
             if (product.saleState == true) {
@@ -70,7 +65,6 @@ class ProductsAdapter(
 
     interface ProductListener {
         fun onProductClick(id: Int)
-        fun onCartButtonClick(id: Int)
         fun onFavButtonClick(product: Product)
     }
 }

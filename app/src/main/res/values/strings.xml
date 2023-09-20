@@ -25,4 +25,6 @@
     <string name="cvv">CVV</string>
     <string name="confirm_payment">Confirm Payment</string>
     <string name="continue_shopping">Continue Shopping</string>
+    <string name="your_items_has_been_placed_and_is_on_it_s_way_to_being_processed">Your items has been placed and is on it\'s way to being processed</string>
+    <string name="your_order_has_been_accepted">Your order has been accepted !</string>
 </resources>

@@ -77,7 +77,11 @@
         android:id="@+id/favoriteFragment"
         android:name="com.example.taptaze.ui.main.favorite.FavoriteFragment"
         android:label="FavoriteFragment"
-        tools:layout="@layout/fragment_favorite"/>
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/favoriteToDetail"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.taptaze.ui.main.profile.ProfileFragment"
@@ -98,6 +102,9 @@
         <argument
             android:name="id"
             app:argType="integer" />
+        <action
+            android:id="@+id/detailToCart"
+            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/paymentFragment"

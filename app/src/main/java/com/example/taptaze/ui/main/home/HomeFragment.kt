@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.taptaze.R
 import com.example.taptaze.common.invisible
 import com.example.taptaze.common.visible
+import com.example.taptaze.data.model.Product
 import com.example.taptaze.data.model.request.AddToCartRequest
 import com.example.taptaze.databinding.FragmentHomeBinding
 import com.example.taptaze.ui.login.AuthViewModel
@@ -47,9 +48,11 @@ class HomeFragment : Fragment(R.layout.fragment_home), ProductsAdapter.ProductLi
         binding.rvDiscount.adapter = discountsAdapter
 
         viewModel.getAllProducts()
+        viewModel.getFavoriteProducts()
         viewModel.getSaleProducts()
         observeData()
     }
+
 
     private fun observeData() {
         viewModel.homeState.observe(viewLifecycleOwner) { state ->
@@ -97,6 +100,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), ProductsAdapter.ProductLi
     override fun onCartButtonClick(id: Int) {
         val addToCartRequest = AddToCartRequest(viewModelFirebase.currentUser!!.uid,id)
         viewModel.addToCart(addToCartRequest)
+    }
+
+    override fun onFavButtonClick(product: Product) {
+        viewModel.addToFavorite(product)
     }
 
 }

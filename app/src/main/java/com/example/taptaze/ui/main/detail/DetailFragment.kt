@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.taptaze.R
@@ -53,6 +54,18 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
             toolbar.setNavigationOnClickListener {
                 findNavController().navigateUp()
+            }
+
+            ivCart.setOnClickListener {
+                findNavController().navigate(
+                    R.id.cartFragment,
+                    null,
+                    findNavController().previousBackStackEntry?.destination?.id?.let { it1 ->
+                        NavOptions.Builder()
+                            .setPopUpTo(it1, true)
+                            .build()
+                    }
+                )
             }
 
             btnAddToCart.setOnClickListener {

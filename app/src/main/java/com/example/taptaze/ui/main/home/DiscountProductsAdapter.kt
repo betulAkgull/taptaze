@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.taptaze.R
 import com.example.taptaze.common.loadImage
 import com.example.taptaze.common.visible
 import com.example.taptaze.data.model.Product
@@ -36,6 +37,10 @@ class DiscountProductsAdapter(
                 productListener.onProductClick(product.id ?: 1)
             }
 
+            ivFavorite.setOnClickListener {
+                productListener.onFavButtonClick(product)
+                ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
+            }
 
             fabAddToCart.setOnClickListener {
                 productListener.onCartButtonClick(product.id!!.toInt())
@@ -66,6 +71,9 @@ class DiscountProductsAdapter(
     interface DiscountProductListener {
         fun onProductClick(id: Int)
         fun onCartButtonClick(id:Int)
+        fun onFavButtonClick(product: Product) {
+
+        }
     }
 }
 
