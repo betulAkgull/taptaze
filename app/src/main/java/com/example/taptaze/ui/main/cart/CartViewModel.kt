@@ -35,9 +35,9 @@ class CartViewModel @Inject constructor(private val productRepository: ProductRe
                 _cartState.value = CartState.CartList(result.data)
                 val totalAmount = result.data.sumOf { product ->
                     if (product.saleState == true) {
-                        product.price ?: 0.0
-                    } else {
                         product.salePrice ?: 0.0
+                    } else {
+                        product.price ?: 0.0
                     }
 
                 }

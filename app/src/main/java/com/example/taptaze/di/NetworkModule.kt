@@ -1,10 +1,13 @@
 package com.example.taptaze.di
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.taptaze.common.Constants
 import com.example.taptaze.data.source.remote.ProductService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -19,6 +22,10 @@ import javax.inject.Singleton
 object NetworkModule {
 
     private const val TIMEOUT = 60L
+
+    @Provides
+    @Singleton
+    fun provideChuckerInterceptor(@ApplicationContext context: Context) = ChuckerInterceptor.Builder(context).build()
 
     @Provides
     @Singleton

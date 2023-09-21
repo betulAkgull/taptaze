@@ -91,14 +91,16 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_count"
-            android:layout_marginEnd="80dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/tv_product_desc"
-            app:layout_constraintTop_toBottomOf="@id/tv_product_desc">
+            app:layout_constraintTop_toBottomOf="@id/tv_product_desc"
+            app:layout_constraintVertical_bias="0.0">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_remove"
@@ -121,11 +123,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:text="1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/fab_add"
                 app:layout_constraintStart_toEndOf="@id/fab_remove"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="1" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_add"

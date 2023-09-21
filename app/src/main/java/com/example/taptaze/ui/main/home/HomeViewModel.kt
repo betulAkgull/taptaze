@@ -47,6 +47,10 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
 
             if (result is Resource.Success) {
                 _homeState.value = HomeState.SaleProductList(result.data)
+                result.data.map {
+
+                }
+
             } else if (result is Resource.Error) {
                 _homeState.value = HomeState.Error(result.throwable)
             }
