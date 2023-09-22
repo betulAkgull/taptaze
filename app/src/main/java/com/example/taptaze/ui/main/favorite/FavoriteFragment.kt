@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.taptaze.R
 import com.example.taptaze.common.invisible
 import com.example.taptaze.common.visible
-import com.example.taptaze.data.model.Product
 import com.example.taptaze.data.model.ProductUI
 import com.example.taptaze.databinding.FragmentFavoriteBinding
 import dagger.hilt.android.AndroidEntryPoint

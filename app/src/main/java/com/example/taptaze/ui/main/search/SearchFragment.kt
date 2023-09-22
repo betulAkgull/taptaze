@@ -16,7 +16,8 @@ import com.example.taptaze.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(R.layout.fragment_search), SearchProductsAdapter.SearchProductListener {
+class SearchFragment : Fragment(R.layout.fragment_search),
+    SearchProductsAdapter.SearchProductListener {
 
     private val binding by viewBinding(FragmentSearchBinding::bind)
 
@@ -47,9 +48,9 @@ class SearchFragment : Fragment(R.layout.fragment_search), SearchProductsAdapter
     }
 
     private fun observeData() {
-        viewModel.searchState.observe(viewLifecycleOwner){ state ->
+        viewModel.searchState.observe(viewLifecycleOwner) { state ->
 
-            when(state){
+            when (state) {
 
                 SearchState.Loading -> {
                     binding.progressBar2.visible()

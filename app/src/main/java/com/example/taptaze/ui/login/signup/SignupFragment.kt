@@ -56,7 +56,11 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
 
                 is AuthState.Error -> {
                     binding.progressBar3.invisible()
-                    Toast.makeText(requireContext(), state.throwable.message.orEmpty(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        state.throwable.message.orEmpty(),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 

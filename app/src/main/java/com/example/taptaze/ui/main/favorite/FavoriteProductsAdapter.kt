@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taptaze.common.loadImage
 import com.example.taptaze.common.visible
-import com.example.taptaze.data.model.Product
 import com.example.taptaze.data.model.ProductUI
 import com.example.taptaze.databinding.ItemFavoriteBinding
 

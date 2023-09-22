@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/splashStyle">
+    style="@style/splashStyle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_horizontal_one"
@@ -66,10 +66,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/taptazelogo"
-        app:layout_constraintTop_toTopOf="@id/gl_hor_mid"
         app:layout_constraintEnd_toStartOf="@id/gl_ver_mid"
-        />
-
+        app:layout_constraintTop_toTopOf="@id/gl_hor_mid" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

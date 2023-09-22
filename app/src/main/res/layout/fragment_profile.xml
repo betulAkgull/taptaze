@@ -33,9 +33,9 @@
 
     <TextView
         android:id="@+id/tv_user_email"
+        style="@style/textViewRegular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/textViewRegular"
         android:layout_margin="10dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"

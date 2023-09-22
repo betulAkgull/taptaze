@@ -5,10 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taptaze.common.Resource
+import com.example.taptaze.data.model.ProductUI
 import com.example.taptaze.data.model.request.AddToCartRequest
 import com.example.taptaze.data.model.response.CRUDResponse
-import com.example.taptaze.data.model.Product
-import com.example.taptaze.data.model.ProductUI
 import com.example.taptaze.data.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -87,7 +86,7 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
         }
     }
 
-    fun getFavoriteProducts(){
+    fun getFavoriteProducts() {
         viewModelScope.launch {
             productRepository.getFavoriteProducts()
         }

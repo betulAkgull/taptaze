@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taptaze.common.Resource
-import com.example.taptaze.data.model.Product
 import com.example.taptaze.data.model.ProductUI
 import com.example.taptaze.data.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,7 +34,7 @@ class FavoriteViewModel @Inject constructor(private val productRepository: Produ
         }
     }
 
-    fun removeFromFavorites(product: ProductUI){
+    fun removeFromFavorites(product: ProductUI) {
         viewModelScope.launch {
             productRepository.removeFromFavorites(product)
             getFavoriteProducts()

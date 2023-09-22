@@ -23,9 +23,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
         with(binding) {
             Handler().postDelayed(Runnable {
-                if(checkCurrentUser()){
+                if (checkCurrentUser()) {
                     findNavController().navigate(SplashFragmentDirections.splashToHome())
-                }else{
+                } else {
                     findNavController().navigate(SplashFragmentDirections.splashToSignin())
                 }
             }, 3000)

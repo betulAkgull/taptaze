@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.taptaze.R
-import com.example.taptaze.common.Resource
 import com.example.taptaze.common.invisible
 import com.example.taptaze.common.isValidEmail
 import com.example.taptaze.common.isValidPassword
@@ -57,7 +56,11 @@ class SigninFragment : Fragment(R.layout.fragment_signin) {
 
                 is AuthState.Error -> {
                     binding.progressBar.invisible()
-                    Toast.makeText(requireContext(), state.throwable.message.orEmpty(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        state.throwable.message.orEmpty(),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 

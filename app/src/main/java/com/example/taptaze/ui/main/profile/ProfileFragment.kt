@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.taptaze.R
 import com.example.taptaze.common.viewBinding
-import com.example.taptaze.databinding.FragmentHomeBinding
 import com.example.taptaze.databinding.FragmentProfileBinding
 import com.example.taptaze.ui.login.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
