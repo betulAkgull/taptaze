@@ -12,7 +12,11 @@ import com.example.taptaze.common.invisible
 import com.example.taptaze.common.viewBinding
 import com.example.taptaze.common.visible
 import com.example.taptaze.data.model.ProductUI
+import com.example.taptaze.data.model.request.AddToCartRequest
 import com.example.taptaze.databinding.FragmentSearchBinding
+import com.example.taptaze.ui.login.AuthViewModel
+import com.example.taptaze.ui.main.home.HomeState
+import com.example.taptaze.ui.main.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,6 +26,10 @@ class SearchFragment : Fragment(R.layout.fragment_search),
     private val binding by viewBinding(FragmentSearchBinding::bind)
 
     private val viewModel by viewModels<SearchViewModel>()
+
+    private val viewModelHome by viewModels<HomeViewModel>()
+
+    private val viewModelFirebase by viewModels<AuthViewModel>()
 
     private val searchProductsAdapter by lazy { SearchProductsAdapter(this) }
 
@@ -72,11 +80,39 @@ class SearchFragment : Fragment(R.layout.fragment_search),
             }
 
         }
+
+    }
+
+    private fun cartObserver() {
+
+        viewModelHome.homeState.observe(viewLifecycleOwner) {
+            if (it is HomeState.PostResponse) {
+                binding.progressBar2.invisible()
+                Toast.makeText(
+                    requireContext(),
+                    it.crud.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (it is HomeState.Error) {
+                binding.progressBar2.invisible()
+                Toast.makeText(
+                    requireContext(),
+                    it.throwable.message.orEmpty(),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     override fun onProductClick(id: Int) {
         val action = SearchFragmentDirections.searchToDetail(id)
         findNavController().navigate(action)
+    }
+
+    override fun onCartButtonClick(id: Int) {
+        val addToCartRequest = AddToCartRequest(viewModelFirebase.currentUser!!.uid, id)
+        viewModelHome.addToCart(addToCartRequest)
+        cartObserver()
     }
 
     override fun onFavButtonClick(product: ProductUI) {

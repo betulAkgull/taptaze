@@ -38,6 +38,10 @@ class SearchProductsAdapter(
                 searchProductListener.onProductClick(product.id)
             }
 
+            fabAddToCart.setOnClickListener {
+                searchProductListener.onCartButtonClick(product.id)
+            }
+
             if (isFavorite) {
                 ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
             }
@@ -78,6 +82,7 @@ class SearchProductsAdapter(
 
     interface SearchProductListener {
         fun onProductClick(id: Int)
+        fun onCartButtonClick(id: Int)
         fun onFavButtonClick(product: ProductUI)
     }
 }

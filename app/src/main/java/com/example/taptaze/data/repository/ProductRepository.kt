@@ -87,10 +87,10 @@ class ProductRepository(
     suspend fun addToCart(addToCartRequest: AddToCartRequest): Resource<CRUDResponse> {
         return try {
             val result = productService.addToCart(addToCartRequest)
-            if (result.status == 400) {
-                Resource.Error(Exception("Product not added"))
-            } else {
+            if (result.status == 200) {
                 Resource.Success(result)
+            } else {
+                Resource.Error(Exception("Product not added"))
             }
         } catch (e: Exception) {
             Resource.Error(e)
