@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taptaze.common.Resource
-import com.example.taptaze.data.model.Product
+import com.example.taptaze.data.model.ProductUI
 import com.example.taptaze.data.model.request.ClearCartRequest
 import com.example.taptaze.data.model.request.DeleteFromCartRequest
 import com.example.taptaze.data.model.response.CRUDResponse
@@ -26,6 +26,10 @@ class CartViewModel @Inject constructor(private val productRepository: ProductRe
     private val _totalAmount = MutableLiveData(0.0)
     val totalAmount: LiveData<Double> = _totalAmount
 
+    init {
+        getCartProducts(FirebaseAuth.getInstance().currentUser!!.uid)
+    }
+
 
     fun getCartProducts(userId: String) {
         viewModelScope.launch {
@@ -33,15 +37,13 @@ class CartViewModel @Inject constructor(private val productRepository: ProductRe
             val result = productRepository.getCartProducts(userId)
             if (result is Resource.Success) {
                 _cartState.value = CartState.CartList(result.data)
-                val totalAmount = result.data.sumOf { product ->
-                    if (product.saleState == true) {
-                        product.salePrice ?: 0.0
+                _totalAmount.value = result.data.sumOf { product ->
+                    if (product.saleState) {
+                        product.salePrice
                     } else {
-                        product.price ?: 0.0
+                        product.price
                     }
-
                 }
-                _totalAmount.value = totalAmount
             } else if (result is Resource.Error) {
                 _cartState.value = CartState.Error(result.throwable)
                 clear()
@@ -69,6 +71,7 @@ class CartViewModel @Inject constructor(private val productRepository: ProductRe
             val result = productRepository.clearCart(clearCartRequest)
             if (result is Resource.Success) {
                 _cartState.value = CartState.PostResponse(result.data)
+                getCartProducts(FirebaseAuth.getInstance().currentUser!!.uid)
             } else if (result is Resource.Error) {
                 _cartState.value = CartState.Error(result.throwable)
             }
@@ -92,6 +95,6 @@ class CartViewModel @Inject constructor(private val productRepository: ProductRe
 sealed interface CartState {
     object Loading : CartState
     data class PostResponse(val crud: CRUDResponse) : CartState
-    data class CartList(val products: List<Product>) : CartState
+    data class CartList(val products: List<ProductUI>) : CartState
     data class Error(val throwable: Throwable) : CartState
 }

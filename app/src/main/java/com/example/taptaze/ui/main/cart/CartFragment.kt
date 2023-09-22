@@ -13,7 +13,6 @@ import com.example.taptaze.R
 import com.example.taptaze.common.invisible
 import com.example.taptaze.common.visible
 import com.example.taptaze.data.model.request.ClearCartRequest
-import com.example.taptaze.data.model.request.DeleteFromCartRequest
 import com.example.taptaze.databinding.FragmentCartBinding
 import com.example.taptaze.ui.login.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +38,6 @@ class CartFragment : Fragment(R.layout.fragment_cart), CartAdapter.CartListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeData()
 
         with(binding) {
 
@@ -54,6 +52,7 @@ class CartFragment : Fragment(R.layout.fragment_cart), CartAdapter.CartListener 
                 alertDialog.setPositiveButton("Yes") { _, _ ->
                     val clearCartRequest = ClearCartRequest(viewModelFirebase.currentUser!!.uid)
                     viewModel.clearCart(clearCartRequest)
+                    viewModel.getCartProducts(viewModelFirebase.currentUser!!.uid)
                 }
                 alertDialog.setNegativeButton("No") { _, _ ->
                     alertDialog.setCancelable(true)
@@ -67,17 +66,19 @@ class CartFragment : Fragment(R.layout.fragment_cart), CartAdapter.CartListener 
 
         }
 
+        initAdapter()
+        observeData()
+
+    }
+
+
+    private fun initAdapter() {
         with(viewModel) {
             getCartProducts(viewModelFirebase.currentUser!!.uid)
             totalAmount.observe(viewLifecycleOwner) { total ->
                 binding.tvTotal.text = String.format("$%.2f", total)
             }
         }
-
-    }
-
-    private fun initAdapter() {
-
     }
 
 
@@ -91,6 +92,7 @@ class CartFragment : Fragment(R.layout.fragment_cart), CartAdapter.CartListener 
                 }
 
                 is CartState.CartList -> {
+                    binding.rvCart.visible()
                     cartAdapter.submitList(state.products)
                     binding.progressBarCart.invisible()
                 }
@@ -105,6 +107,7 @@ class CartFragment : Fragment(R.layout.fragment_cart), CartAdapter.CartListener 
                 }
 
                 is CartState.Error -> {
+                    binding.rvCart.invisible()
                     Toast.makeText(
                         requireContext(),
                         state.throwable.message.toString(),
@@ -125,6 +128,7 @@ class CartFragment : Fragment(R.layout.fragment_cart), CartAdapter.CartListener 
 
     override fun onDeleteItemClick(id: Int) {
         viewModel.deleteFromCart(id)
+        viewModel.getCartProducts(viewModelFirebase.currentUser!!.uid)
     }
 
     override fun onIncreaseItemClick(price: Double) {

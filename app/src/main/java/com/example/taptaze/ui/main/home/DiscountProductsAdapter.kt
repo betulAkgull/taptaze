@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.taptaze.R
 import com.example.taptaze.common.loadImage
 import com.example.taptaze.common.visible
-import com.example.taptaze.data.model.Product
+import com.example.taptaze.data.model.ProductUI
 import com.example.taptaze.databinding.ProductItemBinding
 
 class DiscountProductsAdapter(
     private val discountProductListener: DiscountProductListener
-) : ListAdapter<Product, DiscountProductsAdapter.DiscountProductViewHolder>(DiscountProductDiffCallBack()) {
+) : ListAdapter<ProductUI, DiscountProductsAdapter.DiscountProductViewHolder>(
+    DiscountProductDiffCallBack()
+) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiscountProductViewHolder =
         DiscountProductViewHolder(
             ProductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
@@ -28,13 +30,28 @@ class DiscountProductsAdapter(
         private val binding: ProductItemBinding,
         private val productListener: DiscountProductListener
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: Product) = with(binding) {
+        fun bind(product: ProductUI) = with(binding) {
             tvProductTitle.text = product.title
             tvProductDesc.text = product.description
             ivProduct.loadImage(product.imageOne)
 
+
+            var isFavorite = product.isFavorite
+
+            if (isFavorite) {
+                ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
+            }
+
             ivProduct.setOnClickListener {
-                productListener.onProductClick(product.id ?: 1)
+                isFavorite = !isFavorite
+                ivFavorite.apply {
+                    if (isFavorite) {
+                        ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
+                    } else {
+                        ivFavorite.setImageResource(R.drawable.ic_favorite)
+                    }
+                }
+                productListener.onFavButtonClick(product)
             }
 
             ivFavorite.setOnClickListener {
@@ -43,7 +60,7 @@ class DiscountProductsAdapter(
             }
 
             fabAddToCart.setOnClickListener {
-                productListener.onCartButtonClick(product.id!!.toInt())
+                productListener.onCartButtonClick(product.id)
             }
 
             if (product.saleState == true) {
@@ -58,20 +75,20 @@ class DiscountProductsAdapter(
         }
     }
 
-    class DiscountProductDiffCallBack : DiffUtil.ItemCallback<Product>() {
-        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+    class DiscountProductDiffCallBack : DiffUtil.ItemCallback<ProductUI>() {
+        override fun areContentsTheSame(oldItem: ProductUI, newItem: ProductUI): Boolean {
             return oldItem == newItem
         }
 
-        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
+        override fun areItemsTheSame(oldItem: ProductUI, newItem: ProductUI): Boolean {
             return oldItem.id == newItem.id
         }
     }
 
     interface DiscountProductListener {
         fun onProductClick(id: Int)
-        fun onCartButtonClick(id:Int)
-        fun onFavButtonClick(product: Product) {
+        fun onCartButtonClick(id: Int)
+        fun onFavButtonClick(product: ProductUI) {
 
         }
     }

@@ -8,6 +8,7 @@ import com.example.taptaze.common.Resource
 import com.example.taptaze.data.model.request.AddToCartRequest
 import com.example.taptaze.data.model.response.CRUDResponse
 import com.example.taptaze.data.model.Product
+import com.example.taptaze.data.model.ProductUI
 import com.example.taptaze.data.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -74,9 +75,15 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
         }
     }
 
-    fun addToFavorite(product: Product) {
+    fun addToFavorite(product: ProductUI) {
         viewModelScope.launch {
             productRepository.addToFavorites(product)
+        }
+    }
+
+    fun removeFromFavorite(product: ProductUI) {
+        viewModelScope.launch {
+            productRepository.removeFromFavorites(product)
         }
     }
 
@@ -90,8 +97,8 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
 
 sealed interface HomeState {
     object Loading : HomeState
-    data class ProductList(val products: List<Product>) : HomeState
-    data class SaleProductList(val saleProducts: List<Product>) : HomeState
+    data class ProductList(val products: List<ProductUI>) : HomeState
+    data class SaleProductList(val saleProducts: List<ProductUI>) : HomeState
     data class PostResponse(val crud: CRUDResponse) : HomeState
     data class Error(val throwable: Throwable) : HomeState
 }

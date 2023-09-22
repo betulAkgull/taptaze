@@ -12,6 +12,7 @@ import com.example.taptaze.R
 import com.example.taptaze.common.invisible
 import com.example.taptaze.common.visible
 import com.example.taptaze.data.model.Product
+import com.example.taptaze.data.model.ProductUI
 import com.example.taptaze.databinding.FragmentFavoriteBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -56,11 +57,13 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite),
                 }
 
                 is FavoriteState.Data -> {
+                    binding.rvFavorites.visible()
                     favoriteProductsAdapter.submitList(state.products)
                     progressBar5.invisible()
                 }
 
                 is FavoriteState.Error -> {
+                    binding.rvFavorites.invisible()
                     Toast.makeText(
                         requireContext(),
                         state.throwable.message.toString(),
@@ -78,7 +81,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite),
         findNavController().navigate(action)
     }
 
-    override fun onFavButtonClick(product: Product) {
+    override fun onFavButtonClick(product: ProductUI) {
         viewModel.removeFromFavorites(product)
     }
 }

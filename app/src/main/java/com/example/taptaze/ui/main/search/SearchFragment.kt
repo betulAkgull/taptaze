@@ -11,6 +11,7 @@ import com.example.taptaze.R
 import com.example.taptaze.common.invisible
 import com.example.taptaze.common.viewBinding
 import com.example.taptaze.common.visible
+import com.example.taptaze.data.model.ProductUI
 import com.example.taptaze.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -75,5 +76,9 @@ class SearchFragment : Fragment(R.layout.fragment_search), SearchProductsAdapter
     override fun onProductClick(id: Int) {
         val action = SearchFragmentDirections.searchToDetail(id)
         findNavController().navigate(action)
+    }
+
+    override fun onFavButtonClick(product: ProductUI) {
+        viewModel.addToFavorites(product)
     }
 }

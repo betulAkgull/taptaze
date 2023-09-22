@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.taptaze.common.loadImage
 import com.example.taptaze.common.visible
 import com.example.taptaze.data.model.Product
+import com.example.taptaze.data.model.ProductUI
 import com.example.taptaze.databinding.ItemCartBinding
 
 class CartAdapter(
     private val cartListener: CartListener
-) : ListAdapter<Product, CartAdapter.CartViewHolder>(CartDiffCallBack()) {
+) : ListAdapter<ProductUI, CartAdapter.CartViewHolder>(CartDiffCallBack()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder =
         CartViewHolder(
             ItemCartBinding.inflate(LayoutInflater.from(parent.context), parent, false),
@@ -27,7 +28,7 @@ class CartAdapter(
         private val binding: ItemCartBinding,
         private val cartListener: CartListener
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: Product) = with(binding) {
+        fun bind(product: ProductUI) = with(binding) {
             tvProductTitle.text = product.title
             tvProductDesc.text = product.description
             ivProduct.loadImage(product.imageOne)
@@ -82,12 +83,12 @@ class CartAdapter(
         }
     }
 
-    class CartDiffCallBack : DiffUtil.ItemCallback<Product>() {
-        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+    class CartDiffCallBack : DiffUtil.ItemCallback<ProductUI>() {
+        override fun areContentsTheSame(oldItem: ProductUI, newItem: ProductUI): Boolean {
             return oldItem == newItem
         }
 
-        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
+        override fun areItemsTheSame(oldItem: ProductUI, newItem: ProductUI): Boolean {
             return oldItem.id == newItem.id
         }
     }

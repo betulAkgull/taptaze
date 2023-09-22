@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taptaze.common.Resource
 import com.example.taptaze.data.model.Product
+import com.example.taptaze.data.model.ProductUI
 import com.example.taptaze.data.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -34,11 +35,16 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
         }
     }
 
+    fun addToFavorites(product: ProductUI) {
+        viewModelScope.launch {
+            productRepository.addToFavorites(product)
+        }
+    }
 
 }
 
 sealed interface SearchState {
     object Loading : SearchState
-    data class Data(val products: List<Product>) : SearchState
+    data class Data(val products: List<ProductUI>) : SearchState
     data class Error(val throwable: Throwable) : SearchState
 }

@@ -27,6 +27,7 @@
             app:layout_constraintVertical_bias="0.123" />
 
         <ImageView
+            android:id="@+id/iv_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="125dp"
@@ -39,12 +40,14 @@
         <TextView
             android:id="@+id/tv_product_title"
             style="@style/textViewRegular"
-            android:maxLines="2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:maxLines="3"
+            app:layout_constraintBottom_toTopOf="@+id/fab_add_to_cart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_product"
@@ -94,7 +97,6 @@
             app:layout_constraintEnd_toEndOf="@+id/tv_product_title"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/tv_product_price"
-            app:layout_constraintTop_toBottomOf="@+id/tv_product_title"
             app:layout_constraintVertical_bias="0.933"
             app:maxImageSize="32dp" />
 

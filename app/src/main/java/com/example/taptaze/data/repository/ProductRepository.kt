@@ -1,15 +1,17 @@
 package com.example.taptaze.data.repository
 
 import com.example.taptaze.common.Resource
-import com.example.taptaze.data.mapper.mapToProduct
 import com.example.taptaze.data.mapper.mapToProductEntity
+import com.example.taptaze.data.mapper.mapToProductUI
 import com.example.taptaze.data.model.Product
+import com.example.taptaze.data.model.ProductUI
 import com.example.taptaze.data.model.request.AddToCartRequest
 import com.example.taptaze.data.model.request.ClearCartRequest
 import com.example.taptaze.data.model.request.DeleteFromCartRequest
 import com.example.taptaze.data.model.response.CRUDResponse
 import com.example.taptaze.data.source.local.ProductDao
 import com.example.taptaze.data.source.remote.ProductService
+import com.google.firebase.auth.FirebaseAuth
 
 
 class ProductRepository(
@@ -17,28 +19,30 @@ class ProductRepository(
     private val productDao: ProductDao
 ) {
 
-    suspend fun getProductDetail(id: Int): Resource<Product> {
+    suspend fun getProductDetail(id: Int): Resource<ProductUI> {
         return try {
+
+            val getFavoriteIds = getFavoriteIds()
             val result = productService.getProductDetail(id).product
-
-            result?.let {
-                Resource.Success(it)
-            } ?: kotlin.run {
-                Resource.Error(Exception("Product not found"))
+            result.let {
+                Resource.Success(it.mapToProductUI(isFavorite = getFavoriteIds.contains(it.id)))
             }
         } catch (e: Exception) {
             Resource.Error(e)
         }
     }
 
-    suspend fun getAllProducts(): Resource<List<Product>> {
+    suspend fun getAllProducts(): Resource<List<ProductUI>> {
         return try {
-            val result = productService.getAllProducts().products
+            val getFavoriteIds = getFavoriteIds()
+            val result = productService.getAllProducts().products.orEmpty()
 
-            if (result.isNullOrEmpty()) {
+            if (result.isEmpty()) {
                 Resource.Error(Exception("Products not found"))
             } else {
-                Resource.Success(result)
+                Resource.Success(result.map {
+                    it.mapToProductUI(isFavorite = getFavoriteIds.contains(it.id))
+                })
             }
 
         } catch (e: Exception) {
@@ -46,14 +50,17 @@ class ProductRepository(
         }
     }
 
-    suspend fun getSaleProducts(): Resource<List<Product>> {
+    suspend fun getSaleProducts(): Resource<List<ProductUI>> {
         return try {
-            val result = productService.getSaleProducts().products
+            val getFavoriteIds = getFavoriteIds()
+            val result = productService.getSaleProducts().products.orEmpty()
 
-            if (result.isNullOrEmpty()) {
+            if (result.isEmpty()) {
                 Resource.Error(Exception("Products not found"))
             } else {
-                Resource.Success(result)
+                Resource.Success(result.map {
+                    it.mapToProductUI(isFavorite = getFavoriteIds.contains(it.id))
+                })
             }
 
         } catch (e: Exception) {
@@ -61,13 +68,16 @@ class ProductRepository(
         }
     }
 
-    suspend fun getSearchProducts(query: String): Resource<List<Product>> {
+    suspend fun getSearchProducts(query: String): Resource<List<ProductUI>> {
         return try {
+            val getFavoriteIds = getFavoriteIds()
             val result = productService.getSearchProduct(query).products
-            if (result.isNullOrEmpty()) {
-                Resource.Error(Exception("Products not found"))
-            } else {
-                Resource.Success(result)
+            result?.let {
+                Resource.Success(result.map {
+                    it.mapToProductUI(isFavorite = getFavoriteIds.contains(it.id))
+                })
+            } ?: kotlin.run {
+                Resource.Error(Exception("Products not found !"))
             }
         } catch (e: Exception) {
             Resource.Error(e)
@@ -87,14 +97,17 @@ class ProductRepository(
         }
     }
 
-    suspend fun getCartProducts(userId: String): Resource<List<Product>> {
+    suspend fun getCartProducts(userId: String): Resource<List<ProductUI>> {
         return try {
-            val result = productService.getCartProducts(userId).products
+            val getFavoriteIds = getFavoriteIds()
+            val result = productService.getCartProducts(userId)
 
-            if (result.isNullOrEmpty()) {
-                Resource.Error(Exception("Cart Empty"))
+            if (result.status == 200) {
+                Resource.Success(result.products.orEmpty().map {
+                    it.mapToProductUI(isFavorite = getFavoriteIds.contains(it.id))
+                })
             } else {
-                Resource.Success(result)
+                Resource.Error(Exception("Cart Empty"))
             }
         } catch (e: Exception) {
             Resource.Error(e)
@@ -127,24 +140,32 @@ class ProductRepository(
         } catch (e: Exception) {
             Resource.Error(e)
         }
-
+        getCartProducts(FirebaseAuth.getInstance().currentUser!!.uid)
     }
 
 
-    suspend fun addToFavorites(product: Product) {
+    suspend fun addToFavorites(product: ProductUI) {
         productDao.addToFavorites(product.mapToProductEntity())
     }
 
-    suspend fun removeFromFavorites(product: Product) {
+    suspend fun removeFromFavorites(product: ProductUI) {
         productDao.removeFromFavorites(product.mapToProductEntity())
     }
 
-    suspend fun getFavoriteProducts(): Resource<List<Product>> {
+    suspend fun getFavoriteProducts(): Resource<List<ProductUI>> {
         return try {
-            Resource.Success(productDao.getFavoriteProducts().map { it.mapToProduct() })
+            val result = productDao.getFavoriteProducts().map { it.mapToProductUI() }
+            if (result.isEmpty()) {
+                Resource.Error(Exception("There are no products here!"))
+            } else {
+                Resource.Success(result)
+            }
         } catch (e: Exception) {
             Resource.Error(e)
         }
     }
+
+    suspend fun getFavoriteIds() = productDao.getFavoriteIds()
+
 
 }

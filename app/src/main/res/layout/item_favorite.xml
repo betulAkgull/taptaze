@@ -32,7 +32,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="40dp"
             android:maxLines="2"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_product"
             app:layout_constraintTop_toTopOf="@+id/iv_product"
             tools:text="Coca-Cola" />
@@ -82,6 +84,7 @@
             android:id="@+id/iv_fav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/ic_favorite_filled"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.87"

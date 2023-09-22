@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taptaze.common.Resource
 import com.example.taptaze.data.model.Product
+import com.example.taptaze.data.model.ProductUI
 import com.example.taptaze.data.model.response.CRUDResponse
 import com.example.taptaze.data.repository.ProductRepository
 import com.example.taptaze.ui.main.home.HomeState
@@ -39,6 +40,6 @@ class DetailViewModel @Inject constructor(private val productRepository: Product
 
 sealed interface DetailState {
     object Loading : DetailState
-    data class Data(val product: Product) : DetailState
+    data class Data(val product: ProductUI) : DetailState
     data class Error(val throwable: Throwable) : DetailState
 }

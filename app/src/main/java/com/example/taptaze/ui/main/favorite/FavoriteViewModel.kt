@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taptaze.common.Resource
 import com.example.taptaze.data.model.Product
+import com.example.taptaze.data.model.ProductUI
 import com.example.taptaze.data.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -34,7 +35,7 @@ class FavoriteViewModel @Inject constructor(private val productRepository: Produ
         }
     }
 
-    fun removeFromFavorites(product: Product){
+    fun removeFromFavorites(product: ProductUI){
         viewModelScope.launch {
             productRepository.removeFromFavorites(product)
             getFavoriteProducts()
@@ -46,6 +47,6 @@ class FavoriteViewModel @Inject constructor(private val productRepository: Produ
 
 sealed interface FavoriteState {
     object Loading : FavoriteState
-    data class Data(val products: List<Product>) : FavoriteState
+    data class Data(val products: List<ProductUI>) : FavoriteState
     data class Error(val throwable: Throwable) : FavoriteState
 }
