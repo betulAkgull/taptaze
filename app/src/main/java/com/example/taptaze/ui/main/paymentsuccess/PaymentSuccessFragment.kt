@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.taptaze.R
-import com.example.taptaze.common.invisible
 import com.example.taptaze.common.visible
 import com.example.taptaze.data.model.request.ClearCartRequest
 import com.example.taptaze.databinding.FragmentPaymentSuccessBinding
@@ -82,7 +81,7 @@ class PaymentSuccessFragment : Fragment(R.layout.fragment_payment_success) {
                         state.throwable.message.toString(),
                         Toast.LENGTH_SHORT
                     ).show()
-                    binding.progressBar.invisible()
+                    binding.progressBar.visible()
                 }
 
                 else -> {

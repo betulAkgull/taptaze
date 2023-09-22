@@ -76,7 +76,7 @@ class CartFragment : Fragment(R.layout.fragment_cart), CartAdapter.CartListener 
         with(viewModel) {
             getCartProducts(viewModelFirebase.currentUser!!.uid)
             totalAmount.observe(viewLifecycleOwner) { total ->
-                binding.tvTotal.text = String.format("$%.2f", total)
+                binding.tvTotal.text = String.format("₺%.2f", total)
             }
         }
     }

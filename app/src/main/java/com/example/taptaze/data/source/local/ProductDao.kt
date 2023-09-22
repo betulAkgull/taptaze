@@ -21,4 +21,5 @@ interface ProductDao {
 
     @Query("SELECT id FROM favproducts")
     suspend fun getFavoriteIds(): List<Int>
+
 }

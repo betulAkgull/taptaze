@@ -1,18 +1,13 @@
 package com.example.taptaze.common
 
 import android.view.View
-import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.ContentInfoCompat.Flags
 import com.bumptech.glide.Glide
-import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
 
 fun ImageView.loadImage(url: String?) {
     Glide.with(this.context).load(url).into(this)
-}
-
-fun TextView.strikeText(){
 }
 
 fun View.visible() {
@@ -31,8 +26,8 @@ fun String.isValidEmail(email: String): Boolean {
     return false
 }
 
-fun String.isValidPassword(password:String): Boolean{
-    if(!password.isNullOrEmpty() && password.length >= 6){
+fun String.isValidPassword(password: String): Boolean {
+    if (!password.isNullOrEmpty() && password.length >= 6) {
         return true
     }
     return false

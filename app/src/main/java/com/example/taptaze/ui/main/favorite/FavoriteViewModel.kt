@@ -42,6 +42,7 @@ class FavoriteViewModel @Inject constructor(private val productRepository: Produ
     }
 
 
+
 }
 
 sealed interface FavoriteState {

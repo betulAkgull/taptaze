@@ -42,7 +42,7 @@ class DiscountProductsAdapter(
                 ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
             }
 
-            ivProduct.setOnClickListener {
+            ivFavorite.setOnClickListener {
                 isFavorite = !isFavorite
                 ivFavorite.apply {
                     if (isFavorite) {
@@ -54,9 +54,8 @@ class DiscountProductsAdapter(
                 productListener.onFavButtonClick(product)
             }
 
-            ivFavorite.setOnClickListener {
-                productListener.onFavButtonClick(product)
-                ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
+            ivProduct.setOnClickListener {
+                productListener.onProductClick(product.id)
             }
 
             fabAddToCart.setOnClickListener {

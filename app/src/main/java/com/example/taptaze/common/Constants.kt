@@ -17,6 +17,6 @@ object Constants {
         const val CLEAR_CART = "clear_cart.php"
         const val SEARCH_PRODUCT = "search_product.php"
 
-
     }
+
 }
